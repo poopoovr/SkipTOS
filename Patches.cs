@@ -2,13 +2,24 @@ using HarmonyLib;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
+using GorillaTagScripts.VirtualStumpCustomMaps.ModIO;
 
 namespace SkipTOS
 {
     [HarmonyPatch(typeof(LegalAgreements), "StartLegalAgreements")]
     static class Patch_LegalAgreements
     {
-        static bool Prefix(LegalAgreements __instance, ref Task __result)
+        static bool Prefix(ref Task __result)
+        {
+            __result = Task.CompletedTask;
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(ModIOTermsOfUse_v2), "StartLegalAgreements")]
+    static class Patch_ModIOTermsOfUse_v2
+    {
+        static bool Prefix(ref Task __result)
         {
             __result = Task.CompletedTask;
             return false;
